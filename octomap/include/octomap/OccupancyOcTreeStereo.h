@@ -94,7 +94,11 @@ namespace octomap {
     virtual void insertPointCloud(const Pointcloud& scan, const octomap::point3d& sensor_origin,
                                   const octomath::Vector3& sensor_orientation, double maxrange=-1., 
                                   bool lazy_eval = false, bool discretize = false);
-
+    /**
+     * Returns the logodds value that would be integrated for the given measurement at the given distance from the sensor position
+     */
+    virtual double getLogOdds() ;
+    
     /**
      * Integrate occupancy measurement with dependence on distance from sensor to measurement.
      *
