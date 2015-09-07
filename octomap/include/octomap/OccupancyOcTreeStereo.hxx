@@ -98,7 +98,14 @@ namespace octomap {
   NODE* OccupancyOcTreeStereo<NODE>::updateNode(const OcTreeKey& key, 
                                                 bool occupied, 
                                                 float d) {
-     float logOdds;
+     float logOdds = getLogOdds(occupied,d);
+     return OccupancyOcTreeBase<NODE>::updateNode(key, logOdds, false);
+  }
+  
+  template <class NODE>
+  float OccupancyOcTreeStereo<NODE>::getLogOdds( bool occupied, float d )
+  {
+    float logOdds;
      if (d > maximum_range) d = maximum_range;
      if (d < 0.0) d = 0.0;
      int lutIndex = floor(d/this->resolution);
@@ -106,7 +113,8 @@ namespace octomap {
        logOdds = hit_LUT.at(lutIndex);
      else
        logOdds = miss_LUT.at(lutIndex);
-     return OccupancyOcTreeBase<NODE>::updateNode(key, logOdds, false);
+     
+     return logOdds;
   }
 
   template <class NODE>

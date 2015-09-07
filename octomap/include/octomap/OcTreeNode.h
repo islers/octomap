@@ -94,6 +94,24 @@ namespace octomap {
     void addValue(const float& p);
     
 
+        double occDist(){return _occDist;};
+        // sets occDist if it's smaller than the previous value
+        void updateOccDist( double occDist )
+        {
+            if(_occDist==-1)
+                _occDist=occDist;
+            else
+                _occDist=std::min(_occDist,occDist);
+            
+        };
+        
+        // whether this node has been measured or not
+        bool hasMeasurement(){return !_hasNoMeasurement;};
+        void updateHasMeasurement( bool hasMeasurement ){_hasNoMeasurement=!hasMeasurement;};
+        
+    protected:
+        double _occDist; // if node is occluded this sets the shortest distance from an occupied node for which the occlusion was registered, -1 if not registered so far
+        bool _hasNoMeasurement; // True if this node was setup for additional data but was not actually part of a measurement (not free and not occupied)
   protected:
     // "value" stores log odds occupancy probability
   };

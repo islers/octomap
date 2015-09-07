@@ -43,6 +43,8 @@ namespace octomap {
 
   OcTreeNode::OcTreeNode()
     : OcTreeDataNode<float>(0.0)
+    , _occDist(-1)
+    , _hasNoMeasurement(false)
   {
   }
 

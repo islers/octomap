@@ -105,6 +105,11 @@ namespace octomap {
      */
     virtual NODE* updateNode(const OcTreeKey& key, bool occupied, float d);
 
+    /** returns the distance dependent logodds update value for a measurement at a certain depth.
+     * @param occupied true if the node was measured occupied, else false
+     * @param distance distance of measurement from sensor origin
+     */
+    float getLogOdds( bool occupied, float distance );
 
     inline double getCoeff() const { return coefficient; }
     inline double getMaxRange() const { return maximum_range; }
